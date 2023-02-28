@@ -86,7 +86,7 @@ func (t *YourReconciler) Reconcile(c context.Context, req ctrl.Request) (ctrl.Re
     // additional code as you need
 
     // When done with all logic, indicate successful reconciliation and do not requeue.
-    subreconciler.Evaluate(subreconciler.DoNotRequeue())
+    return subreconciler.Evaluate(subreconciler.DoNotRequeue())
 }
 ```
 
@@ -106,13 +106,13 @@ return values based on the mentioned case. An example might look like:
 
 ```Go
 func (t *YourReconciler) doSomeSpecificWork(c context.Context) (*ctrl.Result, error) {
-    // in this example, resources being deleted means we should stop our work
+    // In this example, resources being deleted means we should stop our work
     // so we'll return the corresponding subreconciler result.
     if resourceIsBeingDeleted() {
         return subreconciler.DoNotRequeue()
     }
 
-    // in this example, this task can tell us to backoff without throwing an error, in 
+    // In this example, this task can tell us to backoff without throwing an error, in 
     // which case we want to requeue for the work to be done later instead of spamming
     // the reconciliation until the work can be completed.
     backoff, err := doSomeComplicatedWork(c)
