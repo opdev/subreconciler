@@ -94,6 +94,11 @@ This structure allows you to build out your order of operations, and add
 additional subreconcilers to the execution as needed in a way that's easy to
 follow for your future self.
 
+In cases where you may want to pass along the
+[Request](https://pkg.go.dev/sigs.k8s.io/controller-runtime#Request) type from
+the top-level reconciler, the `subreconciler.FnWithRequest` type definition is
+the signature you would want to use instead.
+
 ### Flow Control
 
 The previous examples included a few references to flow control functions
