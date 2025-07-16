@@ -66,7 +66,7 @@ func ShouldRequeue(r *ctrl.Result, err error) bool {
 	if r.IsZero() {
 		res = &ctrl.Result{}
 	}
-	return res.Requeue || (err != nil)
+	return (res.RequeueAfter > 0) || (err != nil)
 }
 
 // ShouldHaltOrRequeue returns true if reconciler result is not nil
